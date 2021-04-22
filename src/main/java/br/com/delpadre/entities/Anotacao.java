@@ -1,4 +1,4 @@
-package br.com.delpadre.entities;
+package com.delpadre.Testador.entities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 public class Anotacao {
 	public String Nome;
 
-	public static final String EXPRESSAO_REGULAR = "(\\@\\w+)";
+	public static final String EXPRESSAO_REGULAR = "\\B\\@\\w+";
 
 	public Anotacao(String nome) {
 		this.setNome(nome);
@@ -27,9 +27,11 @@ public class Anotacao {
 
 		Pattern pattern = Pattern.compile(Anotacao.EXPRESSAO_REGULAR);
 		Matcher matcher = pattern.matcher(codigo.getCabecalho());
+		
+		System.out.println(codigo.getCabecalho());
 
-		for (int i = 0; i < matcher.groupCount(); i++) {
-			Anotacao anotacao = new Anotacao(matcher.group(i));
+		while(matcher.find()) {
+			Anotacao anotacao = new Anotacao(matcher.group());
 			anotacoes.add(anotacao);
 		}
 
