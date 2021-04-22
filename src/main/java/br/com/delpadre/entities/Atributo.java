@@ -1,4 +1,4 @@
-package br.com.delpadre.entities;
+package com.delpadre.Testador.entities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 import org.springframework.util.ObjectUtils;
 
 public class Atributo {
-	public static final String EXPRESSAO_REGULAR = "(?<=private)(.*?)(?=;)";
+	public static final String EXPRESSAO_REGULAR = "(?<=private)(.*?)(?=[;])";
 	
     public String nome;
     public String tipo;
@@ -36,16 +36,11 @@ public class Atributo {
     {
 		List<Atributo> atributos = new ArrayList<Atributo>();
 
-		Pattern pattern = Pattern.compile(Anotacao.EXPRESSAO_REGULAR);
-		Matcher matcher = pattern.matcher(codigo.getCabecalho());
+		Pattern pattern = Pattern.compile(Atributo.EXPRESSAO_REGULAR);
+		Matcher matcher = pattern.matcher(codigo.getCorpo());
 		
-		for (int i = 0; i < matcher.groupCount(); i++) {
-			String ocorrencia = matcher.group(i);
-			
-			if (ocorrencia.contains("("))
-                continue;
-
-			Atributo atributo = new Atributo(ocorrencia.trim());
+		while(matcher.find()) {
+			Atributo atributo = new Atributo(matcher.group().trim());
             atributos.add(atributo);
 		}
 		
