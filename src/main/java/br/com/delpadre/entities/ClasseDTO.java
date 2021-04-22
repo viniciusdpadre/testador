@@ -1,4 +1,4 @@
-package br.com.delpadre.entities;
+package com.delpadre.Testador.entities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ public class ClasseDTO {
         this.construtores = new ArrayList<Construtor>();
 
         this.nome = nome;
-        this.codigo = new Codigo(codigo);
+        this.setCodigo(new Codigo(codigo));
     }
     
 	public Codigo getCodigo() {
