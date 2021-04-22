@@ -1,4 +1,4 @@
-package br.com.delpadre.entities;
+package com.delpadre.Testador.entities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 import org.springframework.util.ObjectUtils;
 
 public class Construtor {
-	public static String EXPRESSAO_REGULAR = "(?<=public)(.*?)(?={)";
+	public static String EXPRESSAO_REGULAR = "(?<=public)(.*?)(?=[{])";
 
     private String nome;
 
