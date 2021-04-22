@@ -1,9 +1,9 @@
-package br.com.delpadre.entities;
+package com.delpadre.Testador.entities;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import br.com.delpadre.util.Texto;
+import com.delpadre.Testador.util.Texto;
 
 public class Codigo {
 	private String nomeClasse;
@@ -30,7 +30,7 @@ public class Codigo {
 
 	public void setCabecalho(String cabecalho) {
 		this.cabecalho = Texto.RemoverQuebraLinha(cabecalho);
-		String expressaoRegular = "(.*[p][u][b][l][i][c])";
+		String expressaoRegular = "(.*?[p][u][b][l][i][c])";
 
 		Pattern pattern = Pattern.compile(expressaoRegular);
 		Matcher matcher = pattern.matcher(this.cabecalho);
@@ -60,20 +60,23 @@ public class Codigo {
 	public void setCorpo(String corpo) {
 		this.corpo = Texto.RemoverQuebraLinha(corpo);
 
-		String expressaoRegular = "^.*?(?={)";
-		Pattern p = Pattern.compile(expressaoRegular, Pattern.CASE_INSENSITIVE);
+		String expressaoRegular = "[^{]*";
+		Pattern pattern = Pattern.compile(expressaoRegular);
+		Matcher matcher = pattern.matcher(this.corpo);
 
-		this.corpo = p.matcher(this.corpo).replaceAll("");
+		 
+		this.corpo = pattern.matcher(this.corpo).replaceFirst("");
 	}
 
 	private void definirNomeClasse() {
-		String expressaoRegular = "(?s)(?<=public class).+?(?={)";
+		String expressaoRegular = "(?<=public class)(.*)(?=[{])";
 
 		Pattern pattern = Pattern.compile(expressaoRegular);
 		Matcher matcher = pattern.matcher(this.conteudo);
 
-		if (matcher.find())
+		if (matcher.find()) {			
 			this.setNomeClasse(matcher.group(1).trim());
+		}
 		else
 			this.setNomeClasse("");
 	}
